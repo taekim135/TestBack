@@ -6,7 +6,10 @@ const cors = require('cors')
 
 app.use(cors())
 app.use(express.json())
-
+app.use(express.static('dist'))
+//serve front end files
+// all bundled into a folder called dist
+// npm run build
 
 
 
@@ -24,7 +27,7 @@ let notes = [
   {
     id: "3",
     content: "GET and POST are the most important methods of HTTP protocol",
-    important: true
+    important: false
   }
 ]
 
@@ -35,7 +38,6 @@ const generateID = () =>{
     ? Math.max(...notes.map(n => Number(n.id))) 
     : 0
 
-  const note = request.body
   return String(maxId + 1)
 }
 
@@ -91,11 +93,12 @@ app.post('/api/notes', (request, response) => {
 })
 
 
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
-}
+// for any other unknown api routes
+// const unknownEndpoint = (request, response) => {
+//   response.status(404).send({ error: 'unknown endpoint' })
+// }
 
-app.use(unknownEndpoint)
+// app.use(unknownEndpoint)
 
 
 
