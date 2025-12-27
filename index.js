@@ -2,7 +2,9 @@
 
 const express = require('express')
 const app = express()
-
+//const cors = require('cors')
+// cors not needed as same origins now (port,domain,protocol)
+//app.use(cors())
 app.use(express.json())
 app.use(express.static('dist'))
 //serve front end files
