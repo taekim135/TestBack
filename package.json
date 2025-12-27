@@ -13,7 +13,6 @@
   "author": "Matti Luukkainen",
   "license": "MIT",
   "dependencies": {
-    "cors": "^2.8.5",
     "express": "^5.2.1",
     "node": "^20.19.6"
   }
