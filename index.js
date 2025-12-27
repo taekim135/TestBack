@@ -41,10 +41,10 @@ const generateID = () =>{
   return String(maxId + 1)
 }
 
-
-app.get("/", (request,response) =>{
-  response.send("<h1>Hello World!</h1>")
-})
+// not needed as we are using dist folder
+// app.get("/", (request,response) =>{
+//   response.send("<h1>Hello World!</h1>")
+// })
 
 
 app.get('/api/notes', (request, response) => {
