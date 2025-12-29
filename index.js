@@ -1,16 +1,19 @@
 // Notes Backend Server
 
+require("dotenv").config()
 const express = require('express')
 const app = express()
-//const cors = require('cors')
+const Note = require('./models/note')
+
 // cors not needed as same origins now (port,domain,protocol)
+//const cors = require('cors')
 //app.use(cors())
+
 app.use(express.json())
 app.use(express.static('dist'))
 //serve front end files
 // all bundled into a folder called dist
 // npm run build
-
 
 
 let notes = [
@@ -32,23 +35,17 @@ let notes = [
 ]
 
 
-const generateID = () =>{
-  //Spread syntax "expands" an array into its elements, while rest syntax collects multiple elements and "condenses" them into a single element
-  const maxId = notes.length > 0
-    ? Math.max(...notes.map(n => Number(n.id))) 
-    : 0
-
-  return String(maxId + 1)
-}
-
 // not needed as we are using dist folder
 // app.get("/", (request,response) =>{
 //   response.send("<h1>Hello World!</h1>")
 // })
 
 
+// fetching notes straight from mongoDB
 app.get('/api/notes', (request, response) => {
-  response.json(notes)
+  Note.find({}).then(notes => {
+    response.json(notes)
+  })
 })
 
 
@@ -75,16 +72,13 @@ app.delete("/api/notes/:id", (request,response) => {
 app.post('/api/notes', (request, response) => {
   const body = request.body
 
-  if (!body){
-    return response.status(400).json({
-      error: "content empty"
-    })
+  if (!body.content){
+    return response.status(400).json({ error: "content empty" })
   }
 
   const note = {
     content: body.content,
-    important: body.important || false,
-    id: generateID()
+    important: body.important || false
   }
   
 
@@ -102,7 +96,7 @@ app.use(unknownEndpoint)
 
 
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Backened Server (Notes data) running on port http://localhost:${PORT}`)
 })
