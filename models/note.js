@@ -30,4 +30,5 @@ noteSchema.set('toJSON', {
 })
 
 // export default {} but model style
+// model name Note => collection name notes (small caps + plural)
 module.exports = mongoose.model('Note', noteSchema)
