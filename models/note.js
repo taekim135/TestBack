@@ -5,11 +5,9 @@ mongoose.set('strictQuery', false)
 // connection url
 const url = process.env.MongoDBURL
 
-console.log('connecting to', url)
-
 mongoose.connect(url, { family: 4 })
   .then(result => {
-    console.log('connected to MongoDB')
+    console.log('Connected to MongoDB')
   })
   .catch(error => {
     console.log('error connecting to MongoDB:', error.message)
