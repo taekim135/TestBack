@@ -29,7 +29,9 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } 
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
+  }
   next(error)
 }
 app.use(logs)
@@ -56,11 +58,7 @@ app.get('/api/notes', (request, response) => {
 app.get("/api/notes/:id", (request,response, next) => {
   Note.findById(request.params.id)
     .then(note=>{
-      if (note){
-        response.json(note)
-      }else{
-        response.status(404).end()
-      }
+      return note ? response.json(note) : response.status(404).end()
     })
     // without para = moved to the next route/middleware
     // with para (error) = carried onto the error handler/middleware
@@ -71,18 +69,15 @@ app.get("/api/notes/:id", (request,response, next) => {
 app.delete("/api/notes/:id", (request,response, next) => {
   Note.findByIdAndDelete(request.params.id)
     .then(result =>{
+      // 204 = success but no data to send back
       response.status(204).end()
     })
     .catch(error=>next(error))
 })
 
 
-app.post('/api/notes', (request, response) => {
+app.post('/api/notes', (request, response, next) => {
   const body = request.body
-
-  if (!body.content) {
-    return response.status(400).json({ error: 'content missing' })
-  }
 
   const note = new Note({
     content: body.content,
@@ -93,6 +88,7 @@ app.post('/api/notes', (request, response) => {
     console.log('New Note Saved to DB');
     response.json(savedNote)
   })
+  .catch(error=>next(error))
 })
 
 
