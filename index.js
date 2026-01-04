@@ -36,9 +36,6 @@ const errorHandler = (error, request, response, next) => {
 }
 app.use(logs)
 
-// this has to be the last loaded middleware, also all the routes should be registered before this!
-app.use(errorHandler)
-
 
 
 // not needed as we are using dist folder
@@ -121,6 +118,8 @@ const unknownEndpoint = (request, response) => {
 }
 app.use(unknownEndpoint)
 
+// this has to be the last loaded middleware, also all the routes should be registered before this!
+app.use(errorHandler)
 
 
 const PORT = process.env.PORT

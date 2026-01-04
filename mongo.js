@@ -1,3 +1,7 @@
+//SAMPLE
+//SAMPLE
+//SAMPLE
+
 const mongoose = require('mongoose')
 // MongoDB - NoSQL DB. Document orientated db (different to mysql)
 // flexible schema (not prefefined)
@@ -24,7 +28,11 @@ mongoose.connect(url, { family: 4 })
 
 // schema = blueprint of db structure
 const noteSchema = new mongoose.Schema({
-  content: String,
+  content: {
+    type: String,
+    minLength: 5,
+    required: true
+  },
   important: Boolean,
 })
 
