@@ -1,17 +1,6 @@
+// defines Mongoose schema for notes
+
 const mongoose = require('mongoose')
-
-mongoose.set('strictQuery', false)
-
-// connection url
-const url = process.env.MongoDBURL
-
-mongoose.connect(url, { family: 4 })
-  .then(result => {
-    console.log('Connected to MongoDB')
-  })
-  .catch(error => {
-    console.log('error connecting to MongoDB:', error.message)
-  })
 
 const noteSchema = new mongoose.Schema({
   content: {
@@ -33,4 +22,3 @@ noteSchema.set('toJSON', {
 
 // export default {} but model style
 // model name Note => collection name notes (small caps + plural)
-module.exports = mongoose.model('Note', noteSchema)

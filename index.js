@@ -1,10 +1,11 @@
 // Notes Backend Server
 // Receives HTTP requests and RESPONDS
 
-require("dotenv").config()
 const express = require('express')
 const app = express()
 const Note = require('./models/note')
+const config = require('./utils/config')
+
 
 //cors not needed as same origins now (port,domain,protocol)
 //const cors = require('cors')
@@ -124,5 +125,5 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
-  console.log(`Backened Server (Notes data) running on port http://localhost:${PORT}`)
+  logger.info(`Server running on port ${config.PORT}`)
 })
