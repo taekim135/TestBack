@@ -12,7 +12,8 @@ notesRouter.get('/', async (request, response) => {
 })
 
 notesRouter.get('/:id', async (request, response) => {
-  const note = await Note.findById(request.params.id)
+  // user in populate is linked to user in ref option of mongoose setup
+  const note = await Note.findById(request.params.id).populate('user', { username: 1, name: 1 })
 
     if (note) {
       response.json(note)
