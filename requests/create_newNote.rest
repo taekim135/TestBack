@@ -1,8 +1,8 @@
 POST http://localhost:3001/api/notes
 Content-Type: application/json
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRvZG8iLCJpZCI6IjY5NjY1N2U5ZmRlZTcwYTllODY0OTgxMCIsImlhdCI6MTc2ODMxNjU2Mn0.caty4vxvADFPWus5Ilf-XgutqaZRXbcT1aJRrC22iYg
 
 {
-    "content": "new note content here",
+    "content": "Testing again for token + user using .rest ",
     "important": "true"
 }

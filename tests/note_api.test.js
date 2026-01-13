@@ -67,9 +67,14 @@ describe('viewing a specific note', () => {
 
 describe('addition of a new note', () => {
   test('succeeds with valid data', async () => {
+
+    const userForNote = await helper.usersInDb()
+    const ID = userForNote[0].id
+
     const newNote = {
       content: 'async/await simplifies making async calls',
       important: true,
+      userId: ID
     }
 
     await api
