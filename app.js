@@ -5,14 +5,13 @@ const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
 const notesRouter = require('./controllers/notes')
 const userRouter = require("./controllers/users")
-const logrinRouter = require("./controllers/login")
 const loginRouter = require('./controllers/login')
 
 const app = express()
 
 // establish connection to MongoDB
 
-logger.info('connecting to', config.MONGODB_URI)
+//logger.info('connecting to', config.MONGODB_URI)
 
 mongoose
   .connect(config.MONGODB_URI, { family: 4 })

@@ -20,11 +20,12 @@ if (process.argv.length < 3) {
 const password = process.argv[2]
 
 const url = `mongodb+srv://taekim135:${password}@cluster0.8bm1s3f.mongodb.net/noteApp?appName=Cluster0`
+const testURL = `mongodb+srv://taekim135:${password}@cluster0.8bm1s3f.mongodb.net/testNoteApp?retryWrites=true&w=majority&appName=Cluster0`
 
 mongoose.set('strictQuery',false)
 
 // actual connection to db
-mongoose.connect(url, { family: 4 })
+mongoose.connect(testURL, { family: 4 })
 
 // schema = blueprint of db structure
 const noteSchema = new mongoose.Schema({
@@ -41,9 +42,10 @@ const Note = mongoose.model('Note', noteSchema)
 // model = constructor compiled
 // document = instance of a model (obj)
 
+
 // const note = new Note({
-//   content: "uhjl",
-//   important: false,
+//   content: "HTML is easy",
+//   important: true,
 // })
 
 // note.save().then(result => {
@@ -55,6 +57,6 @@ Note.find({important: true}).then(result => {
   result.forEach(note => {
     console.log(note)
   })
-  mongoose.connection.close()
 })
 
+mongoose.connection.close()
